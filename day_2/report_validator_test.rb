@@ -1,7 +1,7 @@
 require 'minitest'
 require 'minitest/autorun'
 require 'minitest/pride'
-require_relative 'report'
+require_relative 'report_validator'
 
 class ReportValidatorTest < Minitest::Test
   def safe_report_count
