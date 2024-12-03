@@ -31,4 +31,10 @@ class MultiplierTest < Minitest::Test
 
     assert_equal 64, result
   end
+
+  def test_it_can_handle_conditionals
+    @input_code = "mul(8,4)don't()mul(1024,1024)do()mul(8,4)"
+
+    assert_equal 64, result
+  end
 end
