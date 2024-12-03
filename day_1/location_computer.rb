@@ -24,6 +24,18 @@ class LocationComputer
 		return @_summed_result
 	end
 
+	def summed_similarity_score
+		left_values, right_values = parsed_input
+
+		value_frequency_map = right_values.each_with_object(Hash.new(0)) do |value, memo|
+			memo[value] += 1
+		end
+
+		left_values.sum do |value|
+			value * value_frequency_map[value]
+		end
+	end
+
 	def get_delta(number_a, number_b)
 		difference = number_a - number_b
 		difference < 0 ? difference * -1 : difference

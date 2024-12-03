@@ -9,7 +9,7 @@ class LocationComputerTest < Minitest::Test
 		1   3
 		"""
 		
-		result = LocationComputer.compute_location(test_input)
+		result = LocationComputer.new(test_input).summed_result
 		
 		assert_equal 2, result
 	end
@@ -20,7 +20,7 @@ class LocationComputerTest < Minitest::Test
 		4	3
 		"""
 		
-		result = LocationComputer.compute_location(test_input)
+		result = LocationComputer.new(test_input).summed_result
 		
 		assert_equal 3, result
 	end
@@ -35,8 +35,35 @@ class LocationComputerTest < Minitest::Test
 		3   3
 		"""
 
-		result = LocationComputer.compute_location(test_input)
+		result = LocationComputer.new(test_input).summed_result
 
 		assert_equal 11, result
+	end
+
+	def test_that_it_can_compute_a_trivial_similarity_score_summation
+		test_input = """
+		1   1
+		4	1
+		2	4
+		"""
+
+		result = LocationComputer.new(test_input).summed_similarity_score
+
+		assert_equal(6, result)
+	end
+
+	def test_that_it_can_compute_the_provided_example_similarity_score
+		test_input = """
+		3   4
+		4   3
+		2   5
+		1   3
+		3   9
+		3   3
+		"""
+
+		result = LocationComputer.new(test_input).summed_similarity_score
+
+		assert_equal(31, result)
 	end
 end
