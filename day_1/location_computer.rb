@@ -5,12 +5,6 @@ class LocationComputer
 		@raw_input = raw_input
 	end
 
-	def self.compute_location(location_data)
-		new(location_data).summed_result
-	end
-
-	# Parse the list
-	
 	def summed_result
 		return @_summed_result if defined?(@_summed_result)
 		@_summed_result = 0
