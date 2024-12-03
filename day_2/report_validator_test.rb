@@ -4,8 +4,8 @@ require 'minitest/pride'
 require_relative 'report_validator'
 
 class ReportValidatorTest < Minitest::Test
-  def safe_report_count
-    ReportValidator.new(@reports_input.chomp).safe_count
+  def safe_report_count(error_tolerance: 0)
+    ReportValidator.new(@reports_input.chomp).safe_count(error_tolerance)
   end
 
   def test_it_counts_a_single_safe_report
@@ -24,5 +24,11 @@ class ReportValidatorTest < Minitest::Test
     @reports_input = "1 2 3\n1 2 7"
 
     assert_equal 1, safe_report_count
+  end
+
+  def test_it_accepts_a_configurable_error_tolerance_for_reports
+    @reports_input = "1 2 3\n1 2 7"
+
+    assert_equal 2, safe_report_count(error_tolerance: 1)
   end
 end

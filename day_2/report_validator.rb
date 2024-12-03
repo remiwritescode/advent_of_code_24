@@ -7,8 +7,8 @@ class ReportValidator
     @raw_data = reports_data
   end
 
-  def safe_count
-    reports.count { |report| report.safe? }
+  def safe_count(error_tolerance = 0)
+    reports.count { |report| report.safe?(error_tolerance) }
   end
 
   def reports
