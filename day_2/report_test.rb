@@ -4,8 +4,8 @@ require 'minitest/pride'
 require_relative 'report'
 
 class ReportTest < Minitest::Test
-  def safe_report?
-    Report.new(@report_data).safe?
+  def safe_report?(error_tolerance: 0)
+    Report.new(@report_data).safe?(error_tolerance)
   end
   
   def test_a_trivial_increasing_report_is_safe
@@ -36,5 +36,11 @@ class ReportTest < Minitest::Test
     @report_data = "1 2 3 3 4"
 
     refute safe_report?
+  end
+
+  def test_a_safety_threshold_can_be_provided_to_allow_for_errors
+    @report_data = "1 2 3 3 4"
+
+    assert safe_report?(error_tolerance: 1)
   end
 end

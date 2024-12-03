@@ -6,9 +6,10 @@ class Report
     @levels = report_data.split.map(&:to_i)
   end
 
-  def safe?
+  def safe?(error_tolerance = 0)
     @levels.each_cons(2) do |current_value, next_value|
-      return false unless valid_delta?(current_value, next_value)
+      error_tolerance -= 1 unless valid_delta?(current_value, next_value)
+      return false if error_tolerance < 0
     end
 
     true
