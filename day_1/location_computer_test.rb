@@ -17,7 +17,7 @@ class LocationComputerTest < Minitest::Test
 	def test_that_it_can_compute_a_delta_from_multiple_unsorted_locations
 		test_input = """
 		1   5
-		4	3
+		4	  3
 		"""
 		
 		result = LocationComputer.new(test_input).summed_result
@@ -43,8 +43,8 @@ class LocationComputerTest < Minitest::Test
 	def test_that_it_can_compute_a_trivial_similarity_score_summation
 		test_input = """
 		1   1
-		4	1
-		2	4
+		4	  1
+		2	  4
 		"""
 
 		result = LocationComputer.new(test_input).summed_similarity_score
