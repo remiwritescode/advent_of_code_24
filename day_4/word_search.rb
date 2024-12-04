@@ -10,6 +10,11 @@ class WordSearch
     [1, -1]   # UP RIGHT
   ]
 
+  XMAS_ORIENTATIONS = [
+    [[-1, -1], [1, 1]],
+    [[1, -1], [-1, 1]]
+  ]
+
   WORD = 'XMAS'
 
   def initialize(input)
@@ -23,6 +28,19 @@ class WordSearch
       row.each_with_index do |letter, x|
         if letter == 'X'
           count += count_words_from_origin(x, y)
+        end
+      end
+    end
+    
+    return count
+  end
+
+  def xmas_count
+    count = 0
+    @parsed_input.each_with_index do |row, y|
+      row.each_with_index do |letter, x|
+        if letter == 'A'
+          count += 1 if valid_xmas?(x, y)
         end
       end
     end
@@ -46,15 +64,26 @@ class WordSearch
 
   def valid_word?(x, y, x_offset, y_offset)
     WORD.split('').each_with_index do |target_letter, idx|
-      current_x = x + (x_offset * idx)
-      current_y = y + (y_offset * idx)
-
-      return false if current_x < 0 || current_y < 0
-      return false if current_y >= @parsed_input.length
-      return false if current_x >= @parsed_input[current_y].length
-      return false unless @parsed_input[current_y][current_x] == target_letter
+      return false unless letter_at_offset(x, y, x_offset * idx, y_offset * idx) == target_letter
     end
 
     return true
+  end
+
+  def valid_xmas?(x, y)
+    XMAS_ORIENTATIONS.all? do |(offset_one, offset_two)|
+      (letter_at_offset(x, y, *offset_one) == 'M' && letter_at_offset(x, y, *offset_two) == 'S') ||
+      (letter_at_offset(x, y, *offset_one) == 'S' && letter_at_offset(x, y, *offset_two) == 'M')
+    end
+  end
+
+  def letter_at_offset(x, y, x_offset, y_offset)
+    current_x = x + x_offset
+    current_y = y + y_offset
+
+    return nil if current_x < 0 || current_y < 0
+    return nil if current_y >= @parsed_input.length
+    return nil if current_x >= @parsed_input[current_y].length
+    return @parsed_input[current_y][current_x]
   end
 end

@@ -4,26 +4,30 @@ require 'minitest/pride'
 require_relative 'word_search'
 
 class WordSearchTest < Minitest::Test
-  def xmas_count
+  def word_count
     WordSearch.new(@input).word_count
+  end
+
+  def xmas_count
+    WordSearch.new(@input).xmas_count
   end
 
   def test_it_can_find_a_trivial_word
     @input = "FOOXMASFOO"
 
-    assert_equal 1, xmas_count
+    assert_equal 1, word_count
   end
 
   def test_it_can_find_a_trivial_backwards_word
     @input = "OOFSAMXOOF"
 
-    assert_equal 1, xmas_count
+    assert_equal 1, word_count
   end
 
   def test_it_can_find_a_trivial_vertical_word
     @input = "FOOXMASFOO".split('').join("\n")
 
-    assert_equal 1, xmas_count
+    assert_equal 1, word_count
   end
 
   def test_it_can_find_a_diagonal_word
@@ -34,7 +38,7 @@ class WordSearchTest < Minitest::Test
     ...S
     """
 
-    assert_equal 1, xmas_count
+    assert_equal 1, word_count
   end
 
   def test_it_can_find_multiple_words
@@ -51,6 +55,23 @@ class WordSearchTest < Minitest::Test
     MXMXAXMASX
     """
 
-    assert_equal 18, xmas_count
+    assert_equal 18, word_count
+  end
+
+  def test_it_can_find_multiple_x_mases
+    @input = """
+    MMMSXXMASM
+    MSAMXMSMSA
+    AMXSXMAAMM
+    MSAMASMSMX
+    XMASAMXAMM
+    XXAMMXXAMA
+    SMSMSASXSS
+    SAXAMASAAA
+    MAMMMXMMMM
+    MXMXAXMASX
+    """
+
+    assert_equal 9, xmas_count
   end
 end
