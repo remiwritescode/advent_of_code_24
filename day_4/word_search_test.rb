@@ -1,7 +1,7 @@
 require 'minitest'
 require 'minitest/autorun'
 require 'minitest/pride'
-require_relative 'word_solver'
+require_relative 'word_search'
 
 class WordSearchTest < Minitest::Test
   def xmas_count
@@ -11,19 +11,19 @@ class WordSearchTest < Minitest::Test
   def test_it_can_find_a_trivial_word
     @input = "FOOXMASFOO"
 
-    assert_equal 1, word_count
+    assert_equal 1, xmas_count
   end
 
   def test_it_can_find_a_trivial_backwards_word
     @input = "OOFSAMXOOF"
 
-    assert_equal 1, word_count
+    assert_equal 1, xmas_count
   end
 
   def test_it_can_find_a_trivial_vertical_word
     @input = "FOOXMASFOO".split('').join("\n")
 
-    assert_equal 1, word_count
+    assert_equal 1, xmas_count
   end
 
   def test_it_can_find_a_diagonal_word
@@ -34,23 +34,23 @@ class WordSearchTest < Minitest::Test
     ...S
     """
 
-    assert_equal 1, word_count
+    assert_equal 1, xmas_count
   end
 
   def test_it_can_find_multiple_words
     @input = """
-    ....XXMAS.
-    .SAMXMS...
-    ...S..A...
-    ..A.A.MS.X
-    XMASAMX.MM
-    X.....XA.A
-    S.S.S.S.SS
-    .A.A.A.A.A
-    ..M.M.M.MM
-    .X.X.XMASX
+    MMMSXXMASM
+    MSAMXMSMSA
+    AMXSXMAAMM
+    MSAMASMSMX
+    XMASAMXAMM
+    XXAMMXXAMA
+    SMSMSASXSS
+    SAXAMASAAA
+    MAMMMXMMMM
+    MXMXAXMASX
     """
 
-    assert_equal 11, word_count
+    assert_equal 18, xmas_count
   end
 end
