@@ -11,8 +11,8 @@ class WordSearch
   ]
 
   XMAS_ORIENTATIONS = [
-    [[-1, -1], [1, 1]],
-    [[1, -1], [-1, 1]]
+    [[-1, -1], [1, 1]], # UP LEFT, DOWN RIGHT
+    [[1, -1], [-1, 1]]  # UP RIGHT, DOWN LEFT
   ]
 
   WORD = 'XMAS'
