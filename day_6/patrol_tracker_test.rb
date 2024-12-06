@@ -25,4 +25,14 @@ class PatrolTrackerTest < Minitest::Test
 
     assert_equal 4, entered_cell_count
   end
+
+  def test_it_raises_if_a_guard_is_in_a_loop
+    @initial_grid_input = ".#..\n...#\n#^..\n..#."
+    # .#..
+    # ...#
+    # #^..
+    # ..#.
+    
+    assert_raises(PatrolTracker::GuardInLoopError) { entered_cell_count }
+  end
 end

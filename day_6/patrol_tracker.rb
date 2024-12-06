@@ -11,11 +11,13 @@ class PatrolTracker
 
   def simulate!
     while guard_in_grid?
-      if guard_facing_obstacle?
+      if guard_in_loop?
+        raise GuardInLoopError
+      elsif guard_facing_obstacle?
         guard.encounter_obstacle!
       else
         guard.advance!
-        get_cell(*guard.position)&.guard_entered!
+        get_cell(*guard.position)&.guard_entered!(guard.orientation)
       end
     end
   end
@@ -40,7 +42,7 @@ class PatrolTracker
         cell_object =  Cell.new(cell == '#')
         if cell == '^'
           @guard = Guard.new(x, y)
-          cell_object.guard_entered!
+          cell_object.guard_entered!(guard.orientation)
         end
 
         @cells << cell_object
@@ -49,6 +51,10 @@ class PatrolTracker
 
       @grid << mapped_row
     end
+  end
+
+  def guard_in_loop?
+    get_cell(*guard.next_position)&.initial_guard_orientation == guard.orientation
   end
 
   def guard_in_grid?
@@ -62,7 +68,11 @@ class PatrolTracker
   end
 
   def get_cell(x, y)
+    return nil if x.negative? || y.negative?
+
     row = @grid[y]
     return row[x] if row
   end
+
+  class GuardInLoopError < StandardError; end
 end
