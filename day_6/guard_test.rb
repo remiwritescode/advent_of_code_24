@@ -6,7 +6,7 @@ require_relative 'guard'
 
 class GuardTest < Minitest::Test
   def guard
-    Guard.new(0, 0)
+    @guard ||= Guard.new(0, 0)
   end
 
   def test_she_faces_north_by_default
