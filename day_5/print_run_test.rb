@@ -3,7 +3,7 @@ require 'minitest/autorun'
 require 'minitest/pride'
 require_relative 'print_run'
 
-class PrintRun < Minitest::Test
+class PrintRunTest < Minitest::Test
   def corrected_print_run
     PrintRun.correct(@print_run_pages, @rules)
   end
