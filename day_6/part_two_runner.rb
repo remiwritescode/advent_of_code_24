@@ -23,4 +23,5 @@ while i < input.length
   i += 1
 end
 
-p valid_loop_placement_counts
+puts ''
+puts valid_loop_placement_counts
