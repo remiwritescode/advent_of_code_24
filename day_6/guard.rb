@@ -1,7 +1,8 @@
 class Guard
-  NORTH = [0, 1]
+  # Y-Axis has to be inverted because we're dealing with array indices
+  NORTH = [0, -1]
   EAST = [1, 0]
-  SOUTH = [0, -1]
+  SOUTH = [0, 1]
   WEST = [-1, 0]
 
   ORIENTATIONS = [
