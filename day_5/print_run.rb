@@ -37,9 +37,6 @@ class PrintRun
 
     remaining_pages = unsorted_pages - first_pages
     sorted_remaining_pages = sort_pages(remaining_pages, filtered_rules)
-    if sorted_remaining_pages.nil?
-      require 'pry'; binding.pry
-    end
 
     return first_pages + sorted_remaining_pages
   end
