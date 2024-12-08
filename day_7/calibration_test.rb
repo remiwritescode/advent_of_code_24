@@ -73,6 +73,13 @@ class CalibrationTest < Minitest::Test
     refute possible_calibration?
   end
 
+  def test_it_can_validate_a_concatenation
+    @inputs = [6, 8, 6, 15]
+    @calibration_value = 7290
+
+    assert possible_calibration?
+  end
+
   def test_it_accurately_checks_the_sample
     inputs = {
       190 => [10, 19],
@@ -93,6 +100,6 @@ class CalibrationTest < Minitest::Test
       total += @calibration_value if possible_calibration?
     end
 
-    assert_equal 3749, total
+    assert_equal 11387, total
   end
 end
