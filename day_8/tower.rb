@@ -11,12 +11,19 @@ class Tower
     [@x, @y]
   end
 
-  def antinode_to(other_tower)
+  def antinodes_to(other_tower)
     other_x, other_y = other_tower.coordinate
 
     delta_x = @x - other_x
     delta_y = @y - other_y
+
+    antinode_x = @x
+    antinode_y = @y
   
-    return [@x + delta_x, @y + delta_y]
+    loop do
+      yield [antinode_x, antinode_y]
+      antinode_x += delta_x
+      antinode_y += delta_y
+    end
   end
 end

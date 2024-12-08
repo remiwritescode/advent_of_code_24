@@ -5,14 +5,34 @@ class RadioMap
 
   def initialize(tower_map)
     @raw_input = tower_map
-    @antinodes = []
+    @antinodes = Set.new
     @towers = Hash.new { |h, k| h[k] = [] }
     set_bounds!
     parse_input!
   end
 
   def antinode_count
-    @antinodes.uniq.count
+    @antinodes.size
+  end
+
+  def antinode_map
+    base_map = []
+    @max_y.times { base_map << ['.'] * @max_x }
+    
+    @antinodes.each do |(x, y)|
+      base_map[y][x] = '#'
+    end
+
+    @towers.each do |frequency, towers|
+      towers.each do |tower|
+        x, y = tower.coordinate
+        base_map[y][x] = frequency
+      end
+    end
+
+    base_map.reduce("") do |memo, row|
+      memo + row.join("") + "\n"
+    end
   end
 
   private
@@ -40,14 +60,15 @@ class RadioMap
 
   def record_valid_antinodes(new_tower)
     @towers[new_tower.frequency].each do |existing_tower|
-      add_antinode(new_tower.antinode_to(existing_tower))
-      add_antinode(existing_tower.antinode_to(new_tower))
+      add_antinodes(new_tower, existing_tower)
+      add_antinodes(existing_tower, new_tower)
     end
   end
 
-  def add_antinode(coordinate)
-    x, y = coordinate
-    if x >= 0 && x < @max_x && y >= 0 && y < @max_y
+  def add_antinodes(new_tower, existing_tower)
+    new_tower.antinodes_to(existing_tower) do |coordinate|
+      x, y = coordinate
+      break unless x >= 0 && x < @max_x && y >= 0 && y < @max_y
       @antinodes << coordinate
     end
   end
