@@ -7,35 +7,21 @@ class Calibration
   end
 
   def possible_calibration?(target)
-    possible_signs.any? do |sign_permutation|
-      calibration_value(sign_permutation) == target
-    end
+    check_possible_calibration(@values, target)
   end
 
   private
 
-  def possible_signs
-    signs = [[ADD], [MULTIPLY]]
-    while signs.length < (@values.length - 1) * 2
-      signs = signs.each_with_object([]) do |sign_array, memo|
-        [ADD, MULTIPLY].each do |new_sign|
-          memo << sign_array + [new_sign]
-        end
-      end
-    end
-    return signs
-  end
+  def check_possible_calibration(remaining_values, remaining_target)
+    remaining_values = remaining_values.dup
+    current_value = remaining_values.pop
+    return current_value == remaining_target if remaining_values.length == 0
+    return false if remaining_target < 0
 
-  def calibration_value(signs)
-    total = @values.first
-    signs.each_with_index do |current_sign, idx|
-      if current_sign == ADD
-        total += @values[idx + 1]
-      else
-        total *= @values[idx + 1]
-      end
+    if remaining_target % current_value == 0
+      return true if check_possible_calibration(remaining_values, remaining_target / current_value)
     end
 
-    total
+    return check_possible_calibration(remaining_values, remaining_target - current_value)
   end
 end
