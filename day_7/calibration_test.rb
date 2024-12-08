@@ -52,9 +52,9 @@ class CalibrationTest < Minitest::Test
   end
 
   def test_a_weird_case_idk_exists
-    # 13 * 26 + 4 + 4
-    @inputs = [13, 26, 1337, 4]
-    @calibration_value = 346
+    # 13 * 26 * 4 + 4
+    @inputs = [13, 26, 4, 4]
+    @calibration_value = 1356
 
     assert possible_calibration?
   end
