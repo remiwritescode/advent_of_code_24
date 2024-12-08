@@ -7,9 +7,9 @@ inputs.each do |calibration_line|
   target, inputs = calibration_line.split(":")
   parsed_target = target.to_i
   parsed_inputs = inputs.split(' ').map(&:to_i)
-  puts parsed_inputs.inspect
 
   if Calibration.new(parsed_inputs).possible_calibration?(parsed_target)
+    puts parsed_target
     total += parsed_target
   end
 end
