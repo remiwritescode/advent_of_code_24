@@ -12,7 +12,7 @@ class RadioMap
   end
 
   def antinode_count
-    @antinodes.count
+    @antinodes.uniq.count
   end
 
   private

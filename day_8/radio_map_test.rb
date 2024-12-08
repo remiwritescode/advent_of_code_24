@@ -53,4 +53,10 @@ class RadioMapTest < Minitest::Test
 
     assert_equal 0, antinode_count
   end
+
+  def test_it_can_calculate_the_example_input
+    @tower_map = File.read('example_input.txt')
+
+    assert_equal 14, antinode_count
+  end
 end
