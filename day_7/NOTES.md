@@ -28,3 +28,17 @@ Let's try the given valid answer that seems more reasonably complicated:
 11+6*16+20 = 292 (Valid)
 
 Okay, so, starting with all addition, then walking left and swapping to multiples, undoing them when it exceeds the value seems like it might be a possible solution?
+
+Well, it seems that passes the examples, but not everything else.
+
+I tried to contrive an example that I think could drive out the failure I seem to be having. I believe it's an occurrence where multiplying the end term does not cause the value to go over, but multiplying an earlier term does. Or in this instance, where a value to the right of a multiply must be added.
+
+How can I solve this?
+
+I had thought that reducing the right most multiple might be a soution if the value is over following a multiplication. This *also* works, but I suspect all the test cases with my old logic would effectively do the same thing. 
+
+I wonder if I just need to go back to brute forcing. Can I write code to generate all permutations for a brute force approach instead?
+
+[]
+[[ADD], [MULTIPLY]]
+[[ADD, ADD], [ADD, MULTIPLY], [MULTIPLY, ADD], [MULTIPLY, MULTIPLY]]
