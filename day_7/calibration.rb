@@ -1,7 +1,4 @@
 class Calibration
-  ADD = :+
-  MULTIPLY = :*
-
   def initialize(values)
     @values = values
   end
